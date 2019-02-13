@@ -31,4 +31,48 @@ public class KnightBoard{
     return me;
   }
 
+  private boolean placeKnight(int r, int c, int move) {
+    if (board[r][c] != 0) {
+      return false;
+    }
+    board[r][c] = move;
+    return true;
+  }
+
+  private boolean removeKnight(int r, int c) {
+    if (board[r][c] == 0) {
+      return false;
+    }
+    board[r][c] = 0;
+    return true;
+  }
+  private void moves(int r, int c, int move) {
+    int rows = board.length;
+    int cols = board[r].length;
+
+    if (r+1 < rows && c+2 < cols) {
+      board[r+1][c+2] = move;
+    }
+    if (r+1 < rows && c-2 > -1) {
+      board[r+1][c-2] = move;
+    }
+    if (r-1 > -1 && c+2 < cols) {
+      board[r-1][c+2] = move;
+    }
+    if (r-1 > -1 && c-2 > -1) {
+      board[r-1][c-2] = move;
+    }
+    if (r+2 < cols && c+1 < cols) {
+      board[r+2][c+1] = move;
+    }
+    if (r+2 < cols && c-1 > -1) {
+      board[r+2][c-1] = move;
+    }
+    if (r-2 > -1 && c+1 < cols) {
+      board[r-2][c+1] = move;
+    }
+    if (r-2 > -1 && c-1 > -1) {
+      board[r-2][c-1] = move;
+    }
+  }
 }
