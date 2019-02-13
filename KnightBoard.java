@@ -3,6 +3,9 @@ public class KnightBoard{
   private int[][] board;
 
   public KnightBoard(int startingRows,int startingCols) {
+    if (startingRows <= 0 || startingCols <= 0) {
+      throw new IllegalArgumentException("0 or negative value for dimension");
+    }
     int[][] initial = new int[startingRows][startingCols];
     for (int r = 0; r < initial.length; r++) {
       for (int c = 0; c < initial[r].length; c++) {
