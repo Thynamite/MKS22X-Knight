@@ -19,7 +19,10 @@ public class KnightBoard{
     String me = "";
     for (int r = 0; r < board.length; r++) {
       for (int c = 0; c < board[r].length; c++) {
-        if (board[r][c] >= 10) {
+        if (board[r][c] == 0) {
+          me += "_ ";
+        }
+        else if (board[r][c] >= 10) {
           me += " " + board[r][c] + " ";
         }
         else {
@@ -31,6 +34,29 @@ public class KnightBoard{
     return me;
   }
 
+  public boolean solve(int startRow, int startCol) {
+    if (checkBoard()){
+      throw new IllegalStateException("non-zero found");
+    }
+    if (startRow <= 0 || startCol <= 0 || startRow >= board.length || startCol >= board[startRow].length) {
+      throw new IllegalArgumentException("out of bounds");
+    }
+  }
+
+  private boolean solveH(int row, int col, int move) {
+    if (move >= board.length * board[row].length) {
+      return true;
+    }
+    for (int r = 0; r < board.length; r++) {
+      if (placeKnight(r,col,move)){
+        if (solveH()){
+          return true;
+        }
+        removeKnight(r,col);
+      }
+    }
+    return false;
+  }
   private boolean placeKnight(int r, int c, int move) {
     if (board[r][c] != 0) {
       return false;
@@ -74,5 +100,16 @@ public class KnightBoard{
     if (r-2 > -1 && c-1 > -1) {
       board[r-2][c-1] = move;
     }
+  }
+
+  private boolean checkBoard(){
+    for (int r = 0; r < board.length; r++) {
+      for (int c = 0; c < board.length; c++) {
+        if (board[r][c] != 0) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 }
