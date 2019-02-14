@@ -43,13 +43,12 @@ public class KnightBoard{
     }
     return solveH(startRow,startCol,1);
   }
-
+  
   private boolean solveH(int row, int col, int move) {
     if (move > board.length * board[0].length) {
       return true;
     }
-    //int rows = board.length;
-    //int cols = board[0].length;
+    for (int x = 0; x < board.length * board[0].length; x++) {
       if (placeKnight(row,col,move)){
         if (solveH(row+1,col+2,move+1)){
           return true;
@@ -75,11 +74,42 @@ public class KnightBoard{
         else if (solveH(row-2,col-1,move+1)){
           return true;
         }
-        removeKnight(row,col);
       }
-
+      removeKnight(row,col);
+    }
     return false;
   }
+
+  public int countSolutions(int startRow, int startCol) {
+    if (checkBoard()){
+      throw new IllegalStateException("non-zero found");
+    }
+    if (startRow < 0 || startCol < 0 || startRow >= board.length || startCol >= board[startRow].length) {
+      throw new IllegalArgumentException("out of bounds");
+    }
+    return countBulls(startRow,startCol,1);
+  }
+
+
+  private int countBulls(int row, int col, int move) {
+    if (move > board.length * board[0].length) {
+      return 1;
+    }
+    int tots = 0;
+    if (placeKnight(row,col,move)){
+      tots += countBulls(row+1,col+2,move+1);
+      tots += countBulls(row+1,col-2,move+1);
+      tots += countBulls(row-1,col+2,move+1);
+      tots += countBulls(row-1,col-2,move+1);
+      tots += countBulls(row-2,col+1,move+1);
+      tots += countBulls(row-2,col-1,move+1);
+      tots += countBulls(row+2,col+1,move+1);
+      tots += countBulls(row+2,col-1,move+1);
+      removeKnight(row,col);
+    }
+    return tots;
+  }
+
   private boolean placeKnight(int r, int c, int move) {
     if (r >= board.length || c >= board.length || r < 0 || c < 0) {
       return false;
@@ -101,37 +131,7 @@ public class KnightBoard{
     board[r][c] = 0;
     return true;
   }
-  /*
-  private void moves(int r, int c, int move) {
-    int rows = board.length;
-    int cols = board[r].length;
 
-    if (r+1 < rows && c+2 < cols) {
-      board[r+1][c+2] = move;
-    }
-    if (r+1 < rows && c-2 > -1) {
-      board[r+1][c-2] = move;
-    }
-    if (r-1 > -1 && c+2 < cols) {
-      board[r-1][c+2] = move;
-    }
-    if (r-1 > -1 && c-2 > -1) {
-      board[r-1][c-2] = move;
-    }
-    if (r+2 < cols && c+1 < cols) {
-      board[r+2][c+1] = move;
-    }
-    if (r+2 < cols && c-1 > -1) {
-      board[r+2][c-1] = move;
-    }
-    if (r-2 > -1 && c+1 < cols) {
-      board[r-2][c+1] = move;
-    }
-    if (r-2 > -1 && c-1 > -1) {
-      board[r-2][c-1] = move;
-    }
-  }
-  */
   private boolean checkBoard(){
     for (int r = 0; r < board.length; r++) {
       for (int c = 0; c < board.length; c++) {
