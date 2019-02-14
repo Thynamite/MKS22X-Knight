@@ -41,15 +41,39 @@ public class KnightBoard{
     if (startRow <= 0 || startCol <= 0 || startRow >= board.length || startCol >= board[startRow].length) {
       throw new IllegalArgumentException("out of bounds");
     }
+    return solveH(startRow,startCol,1);
   }
 
   private boolean solveH(int row, int col, int move) {
     if (move >= board.length * board[row].length) {
       return true;
     }
-    for (int r = 0; r < board.length; r++) {
+    int rows = board.length;
+    int cols = board[row].length;
+    for (int r = 0; r < board.length; r++) { //this is bad
       if (placeKnight(r,col,move)){
-        if (solveH()){
+        if (solveH(row+1,col+2,move+1)){
+          return true;
+        }
+        if (solveH(row+1,col-2,move+1)){
+          return true;
+        }
+        if (solveH(row-1,col+2,move+1)){
+          return true;
+        }
+        if (solveH(row-1,col-2,move+1)){
+          return true;
+        }
+        if (solveH(row+2,col+1,move+1)){
+          return true;
+        }
+        if (solveH(row+2,col-1,move+1)){
+          return true;
+        }
+        if (solveH(row-2,col+1,move+1)){
+          return true;
+        }
+        if (solveH(row-2,col-1,move+1)){
           return true;
         }
         removeKnight(r,col);
@@ -58,6 +82,9 @@ public class KnightBoard{
     return false;
   }
   private boolean placeKnight(int r, int c, int move) {
+    if (r > board.length || c > board.length || r < -1 || c < -1) {
+      return false;
+    }
     if (board[r][c] != 0) {
       return false;
     }
@@ -66,6 +93,9 @@ public class KnightBoard{
   }
 
   private boolean removeKnight(int r, int c) {
+    if (r > board.length || c > board.length || r < -1 || c < -1) {
+      return false;
+    }
     if (board[r][c] == 0) {
       return false;
     }
