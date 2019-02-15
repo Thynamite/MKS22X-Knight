@@ -43,37 +43,16 @@ public class KnightBoard{
     }
     return solveH(startRow,startCol,1);
   }
-  
+
   private boolean solveH(int row, int col, int move) {
     if (move > board.length * board[0].length) {
       return true;
     }
-    for (int x = 0; x < board.length * board[0].length; x++) {
+    int[] g = {1,2,1,-2,-1,2,-1,-2,2,1,2,-1,-2,1,-2,1};
+
+    for (int x = 0; x< g.length; x+= 2) {
       if (placeKnight(row,col,move)){
-        if (solveH(row+1,col+2,move+1)){
-          return true;
-        }
-        else if (solveH(row+1,col-2,move+1)){
-          return true;
-        }
-        else if (solveH(row-1,col+2,move+1)){
-          return true;
-        }
-        else if (solveH(row-1,col-2,move+1)){
-          return true;
-        }
-        else if (solveH(row+2,col+1,move+1)){
-          return true;
-        }
-        else if (solveH(row+2,col-1,move+1)){
-          return true;
-        }
-        else if (solveH(row-2,col+1,move+1)){
-          return true;
-        }
-        else if (solveH(row-2,col-1,move+1)){
-          return true;
-        }
+        solveH(row + g[x], col + g[x+1], move+1);
       }
       removeKnight(row,col);
     }
@@ -122,7 +101,7 @@ public class KnightBoard{
   }
 
   private boolean removeKnight(int r, int c) {
-    if (r > board.length || c > board.length || r < 0 || c < 0) {
+    if (r >= board.length || c >= board.length || r < 0 || c < 0) {
       return false;
     }
     if (board[r][c] == 0) {
