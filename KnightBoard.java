@@ -57,7 +57,6 @@ public class KnightBoard{
         }
         removeKnight(row,col);
       }
-
     }
     return false;
   }
@@ -78,17 +77,13 @@ public class KnightBoard{
       return 1;
     }
     int tots = 0;
-    if (placeKnight(row,col,move)){
-      tots += countBulls(row+1,col+2,move+1);
-      tots += countBulls(row+1,col-2,move+1);
-      tots += countBulls(row-1,col+2,move+1);
-      tots += countBulls(row-1,col-2,move+1);
-      tots += countBulls(row-2,col+1,move+1);
-      tots += countBulls(row-2,col-1,move+1);
-      tots += countBulls(row+2,col+1,move+1);
-      tots += countBulls(row+2,col-1,move+1);
+    int[] g = {1,2,1,-2,-1,2,-1,-2,2,1,2,-1,-2,1,-2,-1};
+    for (int x = 0; x < g.length; x+= 2) {
+      if (placeKnight(row,col,move)) {
+          tots+= countBulls(row+g[x], col + g[x+1], move+1);
+        }
       removeKnight(row,col);
-    }
+      }
     return tots;
   }
 
