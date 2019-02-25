@@ -48,13 +48,16 @@ public class KnightBoard{
     if (move > board.length * board[0].length) {
       return true;
     }
-    int[] g = {1,2,1,-2,-1,2,-1,-2,2,1,2,-1,-2,1,-2,1};
+    int[] g = {1,2,1,-2,-1,2,-1,-2,2,1,2,-1,-2,1,-2,-1};
 
     for (int x = 0; x< g.length; x+= 2) {
       if (placeKnight(row,col,move)){
-        solveH(row + g[x], col + g[x+1], move+1);
+        if (solveH(row + g[x], col + g[x+1], move+1)) {
+          return true;
+        }
+        removeKnight(row,col);
       }
-      removeKnight(row,col);
+
     }
     return false;
   }
