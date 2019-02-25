@@ -88,7 +88,7 @@ public class KnightBoard{
   }
 
   private boolean placeKnight(int r, int c, int move) {
-    if (r >= board.length || c >= board.length || r < 0 || c < 0) {
+    if (r >= board.length || c >= board[0].length || r < 0 || c < 0) {
       return false;
     }
     if (board[r][c] != 0) {
@@ -99,7 +99,7 @@ public class KnightBoard{
   }
 
   private boolean removeKnight(int r, int c) {
-    if (r >= board.length || c >= board.length || r < 0 || c < 0) {
+    if (r >= board.length || c >= board[0].length || r < 0 || c < 0) {
       return false;
     }
     if (board[r][c] == 0) {
@@ -111,7 +111,7 @@ public class KnightBoard{
 
   private boolean checkBoard(){
     for (int r = 0; r < board.length; r++) {
-      for (int c = 0; c < board.length; c++) {
+      for (int c = 0; c < board[0].length; c++) {
         if (board[r][c] != 0) {
           return true;
         }
