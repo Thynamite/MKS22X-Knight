@@ -12,16 +12,19 @@ public class optimize{
 
   public int[] sortList(int row, int col){
     int[] g = {1,2,1,-2,-1,2,-1,-2,2,1,2,-1,-2,1,-2,-1};
-    int[] n = new int[8];
-    for (int x = 0; x < n.length; x++) {
-      n[x] = 50;
+    optimizes[] o = new optimizes[8];
+    for (int x = 0; x < g.length; x+=2) {
+      o[x/2] = new optimizes(g[x],g[x+1],50);
     }
+    int[] n = new int[8];
+    int[] r = new int[24];
+
     for (int x = 0; x < g.length; x+=2 ) {
       if ((row + g[x] > -1 && row + g[x] < possibles.length) && (col + g[x+1] > -1 && col + g[x+1] < possibles[0].length)) {
-        n[x/2] = possibles[row+g[x]][col+g[x+1]];
+        o[x/2].setMoves(possibles[row][col]);
       }
     }
-
+    bubbleSort(o);
   }
 
   public void update(int row, int col){
