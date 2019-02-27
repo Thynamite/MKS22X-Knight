@@ -10,10 +10,18 @@ public class optimize{
     }
   }
 
-  public int[] sortList(){
+  public int[] sortList(int row, int col){
     int[] g = {1,2,1,-2,-1,2,-1,-2,2,1,2,-1,-2,1,-2,-1};
     int[] n = new int[8];
-    return g;
+    for (int x = 0; x < n.length; x++) {
+      n[x] = 50;
+    }
+    for (int x = 0; x < g.length; x+=2 ) {
+      if ((row + g[x] > -1 && row + g[x] < possibles.length) && (col + g[x+1] > -1 && col + g[x+1] < possibles[0].length)) {
+        n[x/2] = possibles[row+g[x]][col+g[x+1]];
+      }
+    }
+
   }
 
   public void update(int row, int col){
