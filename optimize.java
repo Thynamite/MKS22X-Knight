@@ -12,11 +12,18 @@ public class optimize{
 
   public int[] sortList(){
     int[] g = {1,2,1,-2,-1,2,-1,-2,2,1,2,-1,-2,1,-2,-1};
+    int[] n = new int[8];
     return g;
   }
 
   public void update(int row, int col){
-
+    possibles[row][col] = 50;
+    int[] g = {1,2,1,-2,-1,2,-1,-2,2,1,2,-1,-2,1,-2,-1};
+    for (int x = 0; x < g.length; x+=2 ) {
+      if ((row + g[x] > -1 && row + g[x] < possibles.length) && (col + g[x+1] > -1 && col + g[x+1] < possibles[0].length)) {
+        possibles[row+g[x]][col+g[x+1]]--;
+      }
+    }
   }
 
   private int possibleMoves(int row, int col) {
