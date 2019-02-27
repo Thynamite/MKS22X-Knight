@@ -26,8 +26,8 @@ public class optimizes{
     moves = m;
   }
 
-  public void bubbleSort() {                                     //BubbleSort (should be swapping mutliple times when it compares across the board the entire array length)
-  optimizes[] data = this;
+  public static void bubbleSort(optimizes[] data) {                                     //BubbleSort (should be swapping mutliple times when it compares across the board the entire array length)
+  optimizes[] data = this
   optimizes indexnum = data[0];
   for (int through = 0; through < data.length; through++) {
     for (int check = 0; check < data.length - through -1; check++) {
